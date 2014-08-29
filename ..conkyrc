@@ -38,18 +38,22 @@ use_spacer yes
 
 TEXT
 
-
+# Nelle precedenti righe configura la parte grafica generale 
 
 ${font Arial:bold:size=10}${color Tan1}SYSTEM INFORMATION ${color DarkSlateGray}${hr 2}$color
+# Configura tipo e dimensione e colore del carattere del titolo
 IP External$alignr${execi 3600 wget -qO- http://ipecho.net/plain | tail}
+# ho recuperato da un sito il mio ip su internet tramite comando get
 IP LAN$alignr ${addr eth0}
 IP WIFI$alignr ${addr wlan0}
+# in questo caso ho interrogato le schede di rete per l'ip della rete interna
 
 ${font Arial:bold:size=10}${color Tan1}Net Lan ${color DarkSlateGray}${hr 2}$color
 Inbound $alignr ${downspeed eth0}
 ${downspeedgraph eth0 25,200 000000}
 Outbound $alignr ${upspeed eth0}
 ${upspeedgraph eth0 25,200 000000}
+# Ho inserito anche la lettura del traffico dati
 
 ${font Arial:bold:size=10}${color Tan1}Net WIFI ${color DarkSlateGray}${hr 2}$color
 Inbound $alignr ${downspeed wlan0}
@@ -59,27 +63,31 @@ ${upspeedgraph eth0 25,200 000000}$color
 
 ${font Arial:bold:size=10}${color Tan1}CPU ${color DarkSlateGray}${hr 2}
 ${color yellow}CPU: $color ${freq} Mhz $color
+# Legge la frequeza della CPU
 ${color yellow}CPU Temp:$color${execi 8 sensors | grep -A 0 'crit' |cut -c13-19 } C $color
+# come vedete qui viene richiamato il programma sensors in modo da leggere la temperatura 
 CPU1 $alignr ${cpu cpu0}%
 ${cpugraph cpu0}
 CPU2 $alignr ${cpu cpu1}%
 ${cpugraph cpu1}
+# Utilizzo della cpu con grafico e percentuale
     
 ${font Arial:bold:size=10}${color Tan1}Memoria ${color DarkSlateGray}${hr 2}$color
 MEM $alignc $mem / $memmax $alignr $memperc%
 $membar$color
+# Memoria ram
 swap $alignc $swap / $swapmax $alignr $swapperc%
 ${swapbar}$color
+# Memoria Swap
 
 ${font Arial:bold:size=10}${color Tan1}Disk ${color DarkSlateGray}${hr 2}
 ${color yellow}Hard Disk 1 Temp: $color${execi 8 hddtemp /dev/sda | cut -c31-33} C$color
-${color yellow}Hard Disk 2 Temp: $color${execi 8 hddtemp /dev/sdb | cut -c31-33} C$color
-${color yellow}Hard Disk 3 Temp: $color${execi 8 hddtemp /dev/sdb | cut -c31-33} C$color
-
+# Legge la temperatura tramite il programma hddtemo
 Hard Disk 1 $alignc ${fs_used /media/megatron} / ${fs_size /media/megatron} $alignr ${fs_free_perc /media/skynet}%
 ${fs_bar /media/megatron}
-Hard Disk 2 $alignc ${fs_used /media/skynet} / ${fs_size /media/skynet} $alignr ${fs_free_perc /media/skynet}%
-${fs_bar /media/skynet}
-Hard Disk 3 $alignc ${fs_used /} / ${fs_size /} $alignr ${fs_free_perc /}%
-${fs_bar /}
+# Visualizza lo spazio utilizza nel hard disk
 
+# Per il resto dei comandi vi rimando al sito ufficiale del programma:
+# http://conky.sourceforge.net/variables.html
+# http://conky.sourceforge.net/config_settings.html
+#http://conky.sourceforge.net/docs.html
