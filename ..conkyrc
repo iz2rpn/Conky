@@ -83,7 +83,7 @@ ${swapbar}$color
 ${font Arial:bold:size=10}${color Tan1}Disk ${color DarkSlateGray}${hr 2}
 ${color yellow}Hard Disk 1 Temp: $color${execi 8 hddtemp /dev/sda | cut -c35-38} C$color
 # Legge la temperatura tramite il programma hddtemp
-Hard Disk 1 $alignc ${fs_used /} / ${fs_size /home} $alignr ${fs_free_perc /}%
+Hard Disk 1 $alignc ${fs_used /} / ${fs_size /} $alignr ${fs_free_perc /}%
 ${fs_bar /}
 # Visualizza lo spazio utilizza nel hard disk
 
